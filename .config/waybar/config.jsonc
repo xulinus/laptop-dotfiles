@@ -1,0 +1,162 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 39,
+    "modules-left": ["custom/launch_wofi", "sway/workspaces"],
+    "modules-center": ["custom/music"],
+    "modules-right": [
+      "tray" ,
+      //"idle_inhibitor" ,
+      "pulseaudio",
+      //"bluetooth",
+      //"sway/language",
+      "backlight",
+      "battery",
+      "clock",
+      "custom/launch_wlogout"
+
+    ],
+    "hyprland/window": {
+      "format": "{}"
+    },
+  
+    "workspace": {
+      "format": " {}",
+      "disable-scroll": false
+    },
+    "hyprland/workspaces": {
+      "disable-scroll": false,
+      "all-outputs": true,
+      "format": "{icon}",
+      "on-click": "activate",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+     "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+  
+    "tray": {
+      "icon-size": 18,
+      "spacing": 10
+    },
+
+    "clock": {
+      "format": "{:%H:%M}  ",
+      "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "calendar": {
+                  "mode"          : "year",
+                  "mode-mon-col"  : 3,
+                  "weeks-pos"     : "right",
+                  "on-scroll"     : 1,
+                  "format": {
+                            "months":     "<span color='#ef9f76'><b>{}</b></span>",
+                            "days":       "<span color='#f4b8e4'><b>{}</b></span>",
+                            "weeks":      "<span color='#8caaee'><b>W{}</b></span>",
+                            "weekdays":   "<span color='#e5c890'><b>{}</b></span>",
+                            "today":      "<span color='#e78284'><b><u>{}</u></b></span>"
+                            }
+                  },
+      "actions":  {
+                  "on-click-right": "mode",
+                  "on-scroll-up": "tz_up",
+                  "on-scroll-down": "tz_down",
+                  "on-scroll-up": "shift_up",
+                  "on-scroll-down": "shift_down"
+                  }
+  },
+  
+"pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+        "alsa_output.pci-0000_00_1f.3.analog-stereo": "",
+        "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "phone-muted": "",
+        "portable": "",
+        "car": "",
+        "default": ["", ""]
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol-qt",
+    "ignored-sinks": ["Easy Effects Sink"]
+},
+  
+    "pulseaudio#microphone": {
+      "format": "{format_source}",
+      "format-source": " {volume}%",
+      "format-source-muted": " Muted",
+      "on-click": "pamixer --default-source -t",
+      "on-scroll-up": "pamixer --default-source -i 5",
+      "on-scroll-down": "pamixer --default-source -d 5",
+      "scroll-step": 5
+    },
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+          "activated": " ",
+          "deactivated": " "
+      }
+    },
+  
+    "temperature": {
+      "thermal-zone": 1,
+      "format": "{temperatureF}°F ",
+      "critical-threshold": 80,
+      "format-critical": "{temperatureC}°C "
+    },
+
+    "sway/language": {
+      "format": "{} ",
+      "format-en": "US",
+      "format-sv": "SE"
+        },
+  
+    "network": {
+      // "interface": "wlp2*", // (Optional) To force the use of this interface
+      "format-wifi": "  {essid} {signalStrength}%",
+      "format-ethernet": "{ipaddr}/{cidr}",
+      "tooltip-format": "{essid} - {ifname} via {gwaddr}",
+      "format-linked": "{ifname} (No IP)",
+      "format-disconnected": "Disconnected ⚠",
+      "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
+    },
+  
+    "bluetooth": {
+      "format": " {status}",
+      "format-disabled": "", // an empty format will hide the module
+      "format-connected": " {num_connections}",
+      "tooltip-format": "{device_alias}",
+      "tooltip-format-connected": " {device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}"
+    },
+  
+    "custom/launch_wofi": {
+      "format": "   ",
+      "on-click": "wofi --show run",
+      "tooltip": false
+    },
+  
+    "custom/launch_wlogout": {
+      "format": "⏻  ",
+      "on-click": "wlogout",
+      "tooltip": false
+    },
+
+    "custom/music": {
+      "format": "  {}",
+      "escape": true,
+      "interval": 5,
+      "tooltip": false,
+      "exec": "playerctl metadata --format='{{ title }} - {{ artist }}'",
+      "on-click": "playerctl play-pause",
+      "max-length": 50
+  },
+}
